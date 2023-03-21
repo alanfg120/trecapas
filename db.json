@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "nombre": "Alanhjshd",
+      "apellidos": "Herrera",
+      "rol": "administrador",
+      "id": 0
+    },
+    {
+      "nombre": "vivian arturo",
+      "apellidos": "lopez",
+      "rol": "logistica",
+      "id": 1679416990565
+    }
+  ]
+}

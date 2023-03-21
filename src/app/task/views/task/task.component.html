@@ -1,0 +1,121 @@
+<div class="content">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users$ | async">
+        <td>{{ user.nombre }}</td>
+        <td>{{ user.apellidos }}</td>
+        <td>{{ user.rol }}</td>
+        <td>
+          <button
+            class="btn btn-success m-2"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            (click)="updateUser(user)"
+          >
+            Editar
+          </button>
+          <button class="btn btn-danger" (click)="deleteUser(user.id)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="float">
+  <button
+    class="btn btn-primary"
+    data-bs-toggle="modal"
+    data-bs-target="#exampleModal"
+    (click)="form.reset(); update = false; idSelect = undefined"
+  >
+    Agregar usuario
+  </button>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Agregar Usuario
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nombre</label>
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              formControlName="nombre"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Apellidos</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputPassword1"
+              formControlName="apellidos"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Rol</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              formControlName="rol"
+            >
+              <option selected>Selecione un Rol</option>
+              <option value="administrador">Administrador</option>
+              <option value="logistica">Logistica</option>
+              <option value="usuario">Usuario</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cerrar
+          </button>
+          <button type="submit" class="btn btn-primary" *ngIf="!update">
+            Crear
+          </button>
+          <button type="submit" class="btn btn-primary" *ngIf="update">
+            Actualizar
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
