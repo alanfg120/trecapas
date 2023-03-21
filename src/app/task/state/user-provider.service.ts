@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { delay } from 'rxjs';
 import { State } from 'src/app/state';
 import { UsuariosService } from '../data/usuarios.service';
 import { User } from '../model/user.interface';
@@ -7,11 +8,14 @@ import { User } from '../model/user.interface';
 interface UserState {
   users: User[];
   error?: HttpErrorResponse;
+  loading: boolean;
 }
 
 const initialState: UserState = {
   users: [],
+  loading : false
 };
+
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +26,9 @@ export class UserProviderService extends State<UserState> {
   }
 
   getUsers() {
-    this.service.getUsers().subscribe({
-      next: (users) => this.setState({ users }),
+    this.setState({loading: true})
+    this.service.getUsers().pipe(delay(2000)).subscribe({
+      next: (users) => this.setState({ users , loading: false}),
       error: (error) => this.setState({ error }),
     });
   }

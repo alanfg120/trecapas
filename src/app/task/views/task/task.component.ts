@@ -11,6 +11,8 @@ import { UserProviderService } from '../../state/user-provider.service';
 })
 export class TaskComponent implements OnInit {
   users$ = this.userProvider.select((state) => state.users);
+  loading$ = this.userProvider.select(state=> state.loading);
+  
   form!: FormGroup<FormUser>
   update = false;
   idSelect!: number | undefined;

@@ -1,5 +1,9 @@
 <div class="content">
-  <table class="table">
+   <div *ngIf="(loading$ | async)">
+     loading ...
+   </div>
+  
+  <table class="table" *ngIf="!(loading$ | async)">
     <thead>
       <tr>
         <th scope="col">Nombre</th>

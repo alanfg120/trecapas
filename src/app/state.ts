@@ -20,6 +20,7 @@ export class State<T> {
       distinctUntilChanged()
     );
   }
+  
   protected setState(newState: Partial<T>) {
     this.state$.next({
       ...this.currentState,

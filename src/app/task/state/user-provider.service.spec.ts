@@ -19,12 +19,7 @@ describe('UserProviderService', () => {
   let service: UserProviderService;
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('UsuariosService', [
-      'getUsers',
-      'createUser',
-      'deleteUser',
-      'updateUser',
-    ]);
+    const spy = jasmine.createSpyObj('UsuariosService', ['getUsers','createUser','deleteUser','updateUser']);
     TestBed.configureTestingModule({
       providers: [{ provide: UsuariosService, useValue: spy }],
     });
@@ -41,12 +36,10 @@ describe('UserProviderService', () => {
   it('Get Users', (done: DoneFn) => {
     spyUserService.getUsers.and.returnValue(of([mockUser]));
     service.getUsers();
-    service
-      .select((state) => state.users)
-      .subscribe((usuarios) => {
-        expect(usuarios.length).toEqual(1);
-        done();
-      });
+    service.select(state => state.users).subscribe(usuarios => {
+      expect(usuarios.length).toEqual(1)
+      done()
+    })
     expect(spyUserService.getUsers).toHaveBeenCalledTimes(1);
   });
 
@@ -55,26 +48,22 @@ describe('UserProviderService', () => {
     spyUserService.createUser.and.returnValue(of(mockUser));
     service.getUsers();
     service.createUser(mockUser);
-    service
-      .select((state) => state.users)
-      .subscribe((usuarios) => {
-        expect(usuarios.length).toEqual(2);
-        done();
-      });
+    service.select(state => state.users).subscribe(usuarios => {
+      expect(usuarios.length).toEqual(2)
+      done()
+    })
     expect(spyUserService.createUser).toHaveBeenCalledTimes(1);
   });
 
-  it('Create Users', (done: DoneFn) => {
+  it('Delete Users', (done: DoneFn) => {
     spyUserService.getUsers.and.returnValue(of([mockUser]));
     spyUserService.deleteUser.and.returnValue(of(mockUser));
     service.getUsers();
     service.deleteUser(mockUser.id!);
-    service
-      .select((state) => state.users)
-      .subscribe((usuarios) => {
-        expect(usuarios.length).toEqual(0);
-        done();
-      });
+    service.select(state => state.users).subscribe(usuarios => {
+      expect(usuarios.length).toEqual(0)
+      done()
+    })
     expect(spyUserService.deleteUser).toHaveBeenCalledTimes(1);
   });
 
@@ -83,12 +72,10 @@ describe('UserProviderService', () => {
     spyUserService.updateUser.and.returnValue(of(mockUser));
     service.getUsers();
     service.updateUser(mockUser);
-    service
-      .select((state) => state.users)
-      .subscribe((usuarios) => {
-        expect(usuarios.length).toEqual(1);
-        done();
-      });
+    service.select(state => state.users).subscribe(usuarios => {
+      expect(usuarios.length).toEqual(1)
+      done()
+    })
     expect(spyUserService.updateUser).toHaveBeenCalledTimes(1);
   });
 });
